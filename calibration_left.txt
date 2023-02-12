@@ -1,0 +1,28 @@
+camera matrix :
+[[1.37830033e+03 0.00000000e+00 5.32408097e+02]
+ [0.00000000e+00 1.37704393e+03 3.78824812e+02]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+
+new camera matrix : 
+[[1.17124316e+03 0.00000000e+00 5.09841617e+02]
+ [0.00000000e+00 1.13875500e+03 3.80193276e+02]
+ [0.00000000e+00 0.00000000e+00 1.00000000e+00]]
+
+roi (x,y,w,h) :
+ (22, 55, 1228, 616)
+
+baseline : 60mm
+
+focal length (x,y) : 1.17124316e+03, 1.13875500e+03
+
+
+
+ application :
+img = cv2.imread('right0.png')
+h,  w = img.shape[:2]
+newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
+
+dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
+x,y,w,h = roi
+dst = dst[y:y+h, x:x+w]
+cv2.imwrite('calibresult.png',dst)
