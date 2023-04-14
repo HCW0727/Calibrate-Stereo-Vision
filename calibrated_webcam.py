@@ -40,28 +40,32 @@ num = 0
 
 while webcam.isOpened():
     status,frame = webcam.read()
-    left = frame[:,middle_w:]
-    right = frame[:,:middle_w]
+    left_org = frame[:,middle_w:]
+    right_org = frame[:,:middle_w]
 
-    left = cv2.undistort(left,l_mtx, l_dist, None, l_newCameramtx)
+    left = cv2.undistort(left_org,l_mtx, l_dist, None, l_newCameramtx)
     x,y,w,h = l_roi
     left = left[y:y+h, x:x+w]
 
-    right = cv2.undistort(right,r_mtx, r_dist, None, r_newCameramtx)
+    right = cv2.undistort(right_org,r_mtx, r_dist, None, r_newCameramtx)
     x,y,w,h = r_roi
     right = right[y:y+h, x:x+w]
 
     cv2.imshow('left',left)
     cv2.imshow('right',right)
 
-    k = cv2.waitKey(100)
+    k = cv2.waitKey(30)
 
     if k == 27:
         break
 
     elif k == ord('s'):
-        cv2.imwrite('left' + str(num) + '.png',left)
-        cv2.imwrite('right.png',right)
+        cv2.imwrite('left'+str(num)+'.png',left)
+        cv2.imwrite('right'+str(num)+'.png',right)
+
+        cv2.imwrite('left'+str(num)+'_org.png',left_org)
+        cv2.imwrite('right'+str(num)+'_org.png',right_org)
+
         print("images saved!")
 
         num += 1

@@ -3,7 +3,7 @@ import cv2
 import glob
 
 chessboardsize = (9,6)
-frameSize = (1280,720)
+frameSize = (1920,1080)
 
 
 # termination criteria
@@ -21,8 +21,10 @@ images = glob.glob('*.png')
 for fname in images:
     img = cv2.imread(fname)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    # cv2.imshow('test',gray)
+    # cv2.waitKey(0)
     # Find the chess board corners
-    ret, corners = cv2.findChessboardCorners(gray, (9,6),None)
+    ret, corners = cv2.findChessboardCorners(img, (9,7),None)
     # If found, add object points, image points (after refining them)
 
     print(ret)
